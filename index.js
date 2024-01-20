@@ -42,7 +42,7 @@ class APP{
                 const urlActuelle = "/" + req.requestedFolder;
                 const previousUrl = urlActuelle.split("/").slice(0, -1).join("/");
                 const currentFolder = path.join("DATA", req.requestedFolder);
-                const navigationFolder = path.join("/", req.requestedFolder);
+                const navigationFolder = path.join("/", req.requestedFolder);// Var Navigate
                 let isReturn = false;
 
                 if(previousUrl !== "" || req.requestedFolder !== ""){
