@@ -6,6 +6,7 @@ const path = require("path");
 const { engine } = require("express-handlebars");
 const getFolders = require("./modules/getFolders");
 const { log } = require("console");
+const auth = require("basic-auth");
 const url = require("url");
 
 class APP{
@@ -35,9 +36,23 @@ class APP{
 
         this.app.use("/public", express.static(path.join(__dirname, "DATA")));
 
+        this.app.set('case sensitive routing', false);
+
+        const authenticate = (req, res, next) => {
+            const credentials = auth(req);
+        
+            if (!credentials || credentials.name !== ConfigManager.APP.APP_USER || credentials.pass !== ConfigManager.APP.APP_PASSWORD) {
+                res.set('WWW-Authenticate', 'Basic realm="example"');
+                return res.status(401).send('Authentification requise.');
+            }
+        
+            return next();
+        };
+
+        this.app.use("/Cours", authenticate);
+
         this.app.get('/*', async (req, res, next) => {
             try {
-
                 req.requestedFolder = req.params[0];
                 const urlActuelle = "/" + req.requestedFolder;
                 const previousUrl = urlActuelle.split("/").slice(0, -1).join("/");
