@@ -42,6 +42,7 @@ class APP{
                 const urlActuelle = "/" + req.requestedFolder;
                 const previousUrl = urlActuelle.split("/").slice(0, -1).join("/");
                 const currentFolder = path.join("DATA", req.requestedFolder);
+                const navigationFolder = path.join("/", req.requestedFolder);
                 let isReturn = false;
 
                 if(previousUrl !== "" || req.requestedFolder !== ""){
@@ -50,7 +51,7 @@ class APP{
 
                 const tree = await JSON.parse(await getFolders.jsonTree(currentFolder));
                 
-                
+
                 const treeWithUrls = Object.entries(tree).map(([name, value]) => {
                     const isFile = value === null;
                     const urlPath = isFile ? ConfigManager.APP.APP_URL + "/public/" + req.requestedFolder + "/" + encodeURIComponent(name) : path.join("/", req.requestedFolder, encodeURIComponent(name));
@@ -64,7 +65,7 @@ class APP{
                     };
                 });
         
-                res.render("index", { tree: treeWithUrls, previousUrl: ConfigManager.APP.APP_URL + previousUrl , isReturn});
+                res.render("index", { tree: treeWithUrls, previousUrl: ConfigManager.APP.APP_URL + previousUrl , isReturn, currentFolder: navigationFolder});
             } catch (error) {
                 console.error('Erreur lors de la génération de l\'arborescence JSON :', error);
                 res.status(500).send('Une erreur est survenue lors de la récupération de l\'arborescence.');
