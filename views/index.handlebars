@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{{baseUrl}}/assets/img/icon.png" type="image/x-icon">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="{{ baseUrl }}/assets/css/style.css">
+</head>
+<body>
+    <ul>
+        {{#if isReturn}}
+            <a href="{{ previousUrl }}" class="back-button"><i class="fa-solid fa-arrow-left"></i> Retour</a> 
+        {{/if}}
+        {{#each tree}}
+            <li>
+                {{#if isFile}}
+                    <a target="_blank" href="{{ urlPath }}"><i class="fa-solid fa-file"></i>{{ name }}</a>
+                {{else}}
+                    <a href="{{ url }}"><i class="fa-solid fa-folder"></i>{{ name }}</a>
+                {{/if}}
+            </li>
+        {{/each}}
+    </ul>
+</body>
+</html>
