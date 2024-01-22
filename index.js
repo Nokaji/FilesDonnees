@@ -20,6 +20,9 @@ class APP{
         this.app.set('views', './views');
         
         this.initRouter();
+        downloadFiles(ConfigManager.URL.NSI);
+        downloadFiles(ConfigManager.URL.SNIR);
+        downloadFiles(ConfigManager.URL.SNT);
         setInterval(() => {
             downloadFiles(ConfigManager.URL.NSI);
             setTimeout(() => {}, 1000);
