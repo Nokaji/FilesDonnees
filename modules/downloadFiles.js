@@ -77,7 +77,6 @@ async function getAllFiles(baseUrl, downloadDir) {
 
 exports.downloadFiles = async function(baseUrl){
     console.log(`Starting With : ${baseUrl}`);
-    logging(`Start with : ${baseUrl}`);
     if (!fs.existsSync(ConfigManager.APP.APP_DATA_FOLDER)) fs.mkdirSync(ConfigManager.APP.APP_DATA_FOLDER);
     if(baseUrl == ConfigManager.URL.SNT) await getAllFiles(baseUrl, ConfigManager.APP.APP_DATA_FOLDER + "SNT");
     else await getAllFiles(baseUrl, ConfigManager.APP.APP_DATA_FOLDER);

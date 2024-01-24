@@ -68,18 +68,25 @@ class APP{
                 }
 
                 const tree = await JSON.parse(await getFolders.jsonTree(currentFolder));
-                
 
                 const treeWithUrls = Object.entries(tree).map(([name, value]) => {
+
                     const isFile = value === null;
                     const urlPath = isFile ? ConfigManager.APP.APP_URL + "/public/" + req.requestedFolder + "/" + encodeURIComponent(name) : path.join("/", req.requestedFolder, encodeURIComponent(name));
                     const fullUrl = ConfigManager.APP.APP_URL + urlPath;
+                    let isLink = false;
+
+                    if(value !== null && typeof value === "string"){
+                        if(value.startsWith("https://")) isLink = true;
+                    }
 
                     return {
                         name,
                         url: fullUrl,
-                        urlPath: urlPath,
+                        urlPath,
                         isFile,
+                        isLink,
+                        link: value
                     };
                 });
         
