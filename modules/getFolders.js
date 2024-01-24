@@ -3,11 +3,12 @@ const path = require('path');
 
 async function processLinksFile(linksFilePath) {
     try {
-        const linksFileContent = (await fs.readFile(linksFilePath, 'utf-8')).toString();
+        const linksFileContent = await fs.readFile(linksFilePath, 'utf-8');
+        const linksList = [];
 
+        // Utiliser une expression régulière pour extraire les paires Titre et Lien
         const regex = /Title:\s*([^,]+),\s*Link:\s*([^ \n]+)/g;
         let match;
-        const linksList = []; // Utilisez la même variable
 
         while ((match = regex.exec(linksFileContent)) !== null) {
             const title = match[1].trim();
@@ -36,13 +37,11 @@ async function generateTree(dir) {
             
                 // Traiter le fichier links.txt seulement s'il existe
                 if (file === 'links.txt') {
-                    console.log(`Processing links.txt for ${file}`);
                     const treeLinks = await processLinksFile(linksFilePath);
                     for (const link of treeLinks) {
                         tree[link.title] = link.link;
                     }
                 } else {
-                    console.log(`No links.txt for ${file}`);
                     tree[file] = await generateTree(filePath);
                 }
             }
