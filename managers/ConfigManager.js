@@ -15,4 +15,6 @@ exports.APP = {
     APP_DATA_FOLDER: process.env.APP_DATA_FOLDER,
     APP_USER: process.env.APP_USER,
     APP_PASSWORD: process.env.APP_PASSWORD,
+    APP_OTHER_USER: process.env.APP_OTHER_USER,
+    APP_OTHER_PASSWORD: process.env.APP_OTHER_PASSWORD,
 }

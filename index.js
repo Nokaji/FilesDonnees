@@ -44,7 +44,7 @@ class APP{
         const authenticate = (req, res, next) => {
             const credentials = auth(req);
         
-            if (!credentials || credentials.name !== ConfigManager.APP.APP_USER || credentials.pass !== ConfigManager.APP.APP_PASSWORD) {
+            if (!credentials || (credentials.name !== ConfigManager.APP.APP_USER || credentials.pass !== ConfigManager.APP.APP_PASSWORD) && (credentials.name !== ConfigManager.APP.APP_OTHER_USER || credentials.pass !== ConfigManager.APP.APP_OTHER_PASSWORD)) {
                 res.set('WWW-Authenticate', 'Basic realm="example"');
                 return res.status(401).send('Authentification requise.');
             }
