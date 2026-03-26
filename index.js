@@ -133,6 +133,9 @@ class APP {
       ConfigManager.APP.APP_HOST,
       () => {
         console.log("Starting Server...");
+        console.log(
+          `Server is running at http://${ConfigManager.APP.APP_HOST}:${ConfigManager.APP.APP_PORT}${ConfigManager.APP.APP_URL}/`,
+        );
       },
     );
   }
